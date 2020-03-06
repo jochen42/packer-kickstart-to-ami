@@ -4,14 +4,22 @@ auth --enableshadow --passalgo=sha512
 reboot
 # Use network installation
 url --url="http://mirror.centos.org/centos/8/BaseOS/x86_64/os"
+# Use CDROM installation media
+#cdrom
+# Use text install
+text
+
 # Firewall configuration
 firewall --enabled --service=ssh
-firstboot --disable
-ignoredisk --only-use=vda
+firstboot --enable
+ignoredisk --only-use=sda
 # Keyboard layouts
 keyboard --vckeymap=us --xlayouts='us'
 # System language
 lang en_US.UTF-8
+# agree to the eula
+eula --agreed
+repo --name="BaseOS" --baseurl="http://mirror.centos.org/centos/8/BaseOS/x86_64/os/" --cost=100
 repo --name="AppStream" --baseurl="http://mirror.centos.org/centos/8/AppStream/x86_64/os/" --cost=100
 repo --name="extras" --baseurl="http://mirror.centos.org/centos/8/extras/x86_64/os/" --cost=100
 # Network information
@@ -23,10 +31,10 @@ selinux --enforcing
 services --disabled="kdump" --enabled="sshd,rsyslog,chronyd"
 timezone UTC --isUtc
 # Disk
-bootloader --append="console=tty0 console=ttyS0,115200n81 no_timer_check net.ifnames=0" --location=mbr --timeout=1 --boot-drive=vda
+bootloader --append="console=tty0 console=ttyS0,115200n81 no_timer_check net.ifnames=0" --location=mbr --timeout=1 --boot-drive=sda
 zerombr
 clearpart --all --initlabel
-part / --fstype="xfs" --ondisk=vda --size=4096 --grow
+part / --fstype="xfs" --ondisk=sda --size=4096 --grow
 
 # Disable kdump via Kickstart add-on
 # https://docs.centos.org/en-US/centos/install-guide/Kickstart2/
