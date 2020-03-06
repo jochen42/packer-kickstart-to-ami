@@ -3,9 +3,9 @@ auth --enableshadow --passalgo=sha512
 # Reboot after installation
 reboot
 # Use network installation
-url --url="http://mirror.centos.org/centos/8/BaseOS/x86_64/os"
+#url --url="http://mirror.centos.org/centos/8/BaseOS/x86_64/os"
 # Use CDROM installation media
-#cdrom
+cdrom
 # Use text install
 text
 
@@ -19,15 +19,14 @@ keyboard --vckeymap=us --xlayouts='us'
 lang en_US.UTF-8
 # agree to the eula
 eula --agreed
-repo --name="BaseOS" --baseurl="http://mirror.centos.org/centos/8/BaseOS/x86_64/os/" --cost=100
+#repo --name="BaseOS" --baseurl="http://mirror.centos.org/centos/8/BaseOS/x86_64/os/" --cost=100
 repo --name="AppStream" --baseurl="http://mirror.centos.org/centos/8/AppStream/x86_64/os/" --cost=100
 repo --name="extras" --baseurl="http://mirror.centos.org/centos/8/extras/x86_64/os/" --cost=100
 # Network information
-network  --bootproto=dhcp
-network  --hostname=localhost.localdomain
+network  --onboot yes --device eth0 --bootproto=dhcp --noipv6
 # Root password
-rootpw --iscrypted nothing
-selinux --enforcing
+rootpw --plaintext nothing
+selinux --permissive
 services --disabled="kdump" --enabled="sshd,rsyslog,chronyd"
 timezone UTC --isUtc
 # Disk
@@ -121,8 +120,6 @@ dracut-config-generic
 dnf-utils
 firewalld
 grub2
-kernel
-NetworkManager
 nfs-utils
 rsync
 tar

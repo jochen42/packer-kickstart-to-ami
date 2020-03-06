@@ -63,12 +63,12 @@ $ packer build packer-template.json
 3. Upload the image to your S3 Bucket
 
 ```
-$ aws s3 cp ./builds/centos-7-docker-machine.ova s3://<S3_BUCKET>/centos-7-docker-machine.ova
+$ aws s3 cp ./builds/centos-cloud-8.1.1911-test.ova s3://ami-build.k28s.cloud/centos-cloud-8.1.1911-test.ova
 ```
 4. Template necessary AWS objects
 
 ```
-$ python2 template.py --s3-bucket <IMAGE_BUCKET> --image-file centos-7-docker-machine.ova
+$ python2 template.py --s3-bucket ami-build.k28s.cloud --image-file centos-cloud-8.1.1911-test.ova
 ```
 5. Create necessary AWS objects
 
@@ -79,7 +79,7 @@ $ aws iam put-role-policy --role-name vmimport --policy-name vmimport --policy-d
 6. Import the image
 
 ```
-$ aws ec2 import-image --description "centos-7-docker-machine.ova" --license-type BYOL --disk-containers file://aws_config/containers.json
+$ aws ec2 import-image --description "centos-cloud-8.1.1911-test.ova" --license-type BYOL --disk-containers file://aws_config/containers.json
 ```
 
 7. Monitor the import
